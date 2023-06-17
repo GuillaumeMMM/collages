@@ -173,17 +173,18 @@ void main() {
 const HomeImage = (({ imageUrl }) => {
 
   const [loaded, setLoaded] = useState(false);
+  const [loadedImg, setLoadedImg] = useState(null);
   
   return <div className={styles.scene}>
     {!loaded ? <div className={styles.loading}>
     <Image
-      src="/collage_1.jpg"
+      src={imageUrl}
       width={500}
       height={500}
       alt="Picture of the author"
       placeholder="blur"
-      blurDataURL="/collage_1.jpg"
-      onLoadingComplete={() => setLoaded(true)}
+      blurDataURL="https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-superJumbo.jpg"
+      onLoadingComplete={(img) => {setLoaded(true); setLoadedImg(img);}}
     />
       </div> : <Canvas
       className={styles.canvas}
@@ -192,7 +193,7 @@ const HomeImage = (({ imageUrl }) => {
         fov: 60,
       }}
     >
-      <CanvasContent imageUrl={imageUrl}></CanvasContent>
+      <CanvasContent imageUrl={loadedImg.getAttribute('src')}></CanvasContent>
     </Canvas>}
   </div>;
 })
