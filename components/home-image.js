@@ -1,10 +1,9 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import styles from './home-image.module.scss';
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
-const CanvasContent = ({ imageUrl, imageRect }) => {
+const CanvasContent = ({ imageUrl, imageUrlPlaceholder }) => {
 
   /* const texture = new THREE.TextureLoader().load(imageUrl); 
   texture.colorSpace = THREE.SRGBColorSpace; */
@@ -149,10 +148,16 @@ void main() {
 
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(imageUrl, (texture) => {
+    textureLoader.load(imageUrlPlaceholder, (texture) => {
       mesh.current.material.uniforms.u_texture.value = texture;
       texture.needsUpdate = true;
+
+      textureLoader.load(imageUrl, (texture) => {
+        mesh.current.material.uniforms.u_texture.value = texture;
+        texture.needsUpdate = true;
+      });
     });
+
   }, [imageUrl]);
   
   return <>
@@ -170,31 +175,18 @@ void main() {
   </>
 };
 
-const HomeImage = (({ imageUrl }) => {
-
-  const [loaded, setLoaded] = useState(false);
-  const [loadedImg, setLoadedImg] = useState(null);
+const HomeImage = (({ imageUrl, imageUrlPlaceholder }) => {
   
   return <div className={styles.scene}>
-    {!loaded ? <div className={styles.loading}>
-    <Image
-      src={imageUrl}
-      width={500}
-      height={500}
-      alt="Picture of the author"
-      placeholder="blur"
-      blurDataURL="https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-superJumbo.jpg"
-      onLoadingComplete={(img) => {setLoaded(true); setLoadedImg(img);}}
-    />
-      </div> : <Canvas
+    <Canvas
       className={styles.canvas}
       camera={{
         position: [0, 0, 10],
         fov: 60,
       }}
     >
-      <CanvasContent imageUrl={loadedImg.getAttribute('src')}></CanvasContent>
-    </Canvas>}
+      <CanvasContent imageUrl={imageUrl} imageUrlPlaceholder={imageUrlPlaceholder}></CanvasContent>
+    </Canvas>
   </div>;
 })
 
