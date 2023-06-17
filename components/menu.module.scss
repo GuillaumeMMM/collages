@@ -1,0 +1,15 @@
+.menu {
+    padding: 1rem;
+    background-color: #F4F4F4;
+    display: inline-block;
+
+    ul {
+        list-style: none;
+
+        .active {
+            a, a:visited {
+                color: orange;
+            }
+        }
+    }
+}

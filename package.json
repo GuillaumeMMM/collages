@@ -6,8 +6,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-three/fiber": "^8.13.0",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "three": "^0.153.0"
+  },
+  "devDependencies": {
+    "sass": "^1.62.1"
   }
 }
