@@ -1,13 +1,11 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import styles from './home-image.module.scss';
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-const CanvasContent = ({ imageUrl, imageUrlPlaceholder }) => {
+const CanvasContent = ({ imageUrl }) => {
 
-  /* const texture = new THREE.TextureLoader().load(imageUrl); 
-  texture.colorSpace = THREE.SRGBColorSpace; */
- /*  const textureRef = useRef(); */
+  const [textureRatio, setTextureRatio] = useState(1);
   const mesh = useRef();
   const mousePosition = useRef({ x: 0, y: 0 });
 
@@ -106,7 +104,7 @@ void main() {
   float noiseFreq = 0.5;
   float noiseAmp = 0.2; 
   vec3 noisePos = vec3(pos.x * noiseFreq + (u_time / 3.), pos.y, pos.z);
-  pos.z += snoise(noisePos) * (noiseAmp * sin((u_mouse.x - u_mouse.y) / 200.) * 3.);
+  pos.z += snoise(noisePos) * (noiseAmp * sin((u_mouse.x + u_mouse.y) / 200.) * 3.);
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
 }
@@ -117,7 +115,7 @@ void main() {
       u_time: {
         value: 0.0,
       },
-      u_mouse: { value: new THREE.Vector2(0, 0) },
+      u_mouse: { value: new THREE.Vector2(10, 20) },
       u_texture: { value: null },
       u_noiseScale: { value: 10. },
       u_noiseStrength: { value: 0.01 },
@@ -141,31 +139,36 @@ void main() {
     const { clock } = state;
     mesh.current.material.uniforms.u_time.value = clock.getElapsedTime();
     mesh.current.material.uniforms.u_mouse.value = new THREE.Vector2(
-      mousePosition.current.x,
-      mousePosition.current.y
+      mousePosition.current.x || 50,
+      mousePosition.current.y || 50
     );
   });
 
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(imageUrlPlaceholder, (texture) => {
+    textureLoader.load(`${imageUrl.split('.jpg')[0]}_m.jpg`, (texture) => {
+      setTextureRatio(texture.source.data.width / texture.source.data.height)
+
       mesh.current.material.uniforms.u_texture.value = texture;
       texture.needsUpdate = true;
 
       textureLoader.load(imageUrl, (texture) => {
+        setTextureRatio(texture.source.data.width / texture.source.data.height)
         mesh.current.material.uniforms.u_texture.value = texture;
         texture.needsUpdate = true;
       });
     });
 
   }, [imageUrl]);
-  
+
   return <>
-  <ambientLight intensity={1} />
       <mesh 
         ref={mesh}
         position={new THREE.Vector3(0, 0, 0)}
-        geometry={new THREE.PlaneGeometry(10, 10, 100, 100)}
+        geometry={new THREE.PlaneGeometry(
+          textureRatio > 1 ? 10 : textureRatio * 10, textureRatio > 1 ? 10 / textureRatio : 10, 
+          100, 100
+        )}
         material={new THREE.ShaderMaterial( { 
           fragmentShader: fragmentShader,
           uniforms: uniforms,
@@ -175,8 +178,7 @@ void main() {
   </>
 };
 
-const HomeImage = (({ imageUrl, imageUrlPlaceholder }) => {
-  
+const HomeImage = (({ imageUrl, imageUrlPlaceholder, width, height }) => {
   return <div className={styles.scene}>
     <Canvas
       className={styles.canvas}
@@ -185,7 +187,7 @@ const HomeImage = (({ imageUrl, imageUrlPlaceholder }) => {
         fov: 60,
       }}
     >
-      <CanvasContent imageUrl={imageUrl} imageUrlPlaceholder={imageUrlPlaceholder}></CanvasContent>
+      <CanvasContent imageUrl={imageUrl} imageUrlPlaceholder={imageUrlPlaceholder} width={width} height={height}></CanvasContent>
     </Canvas>
   </div>;
 })

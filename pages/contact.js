@@ -11,7 +11,8 @@ export default function Contact() {
         <Menu page={'contact'}></Menu>
         <Layout>
             <Title>Contact</Title>
-            <p>Lorem ipsum</p>
+            &nbsp;
+            <p>Vous pouvez me contacter par mail à l'adresse suivante : <a href="mailto:michelleversille@gmail.com">michelleversille@gmail.com</a></p>
         </Layout>
     </>;
 }

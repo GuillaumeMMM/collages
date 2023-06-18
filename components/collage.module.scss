@@ -1,0 +1,17 @@
+.collage {
+    width: 100%;
+
+    .collage-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h3 {
+            font-weight: 400;
+        }
+
+        span {
+            opacity: 0.6;
+        }
+    }
+}

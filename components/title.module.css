@@ -1,4 +1,11 @@
 .title {
-    font-size: 10rem;
+    font-size: 5rem;
     text-align: center;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .title {
+        font-size: 3rem;
+    }
 }

@@ -38,3 +38,7 @@ a.main-title {
 a.main-title h1 {
   font-size: 3rem;
 }
+
+a {
+  color: black;
+}
