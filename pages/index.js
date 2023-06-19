@@ -21,14 +21,12 @@ export default function Collages({ collages }) {
 
   const homeCollage = collages[Math.floor(Math.random() * collages.length)];
 
-  const regex = new RegExp(/(_\w+)\.(\w+)$/);
+  const regex = new RegExp(/_(.{1,2})\./);
 
   const homeImage = { 
-    url: homeCollage.imageUrl, 
-    /* width: homeImageRatio < 1 ? 90 : homeImageRatio * 90, 
-    height: homeImageRatio >= 1 ? 80 : homeImageRatio * 80,  */
+    url: homeCollage.imageUrl.replace(regex, "."), 
     title: homeCollage.title,
-    imageUrlPlaceholder: homeCollage.imageUrl.replace(regex, "$1$2")
+    imageUrlPlaceholder: homeCollage.imageUrl.replace(regex, "_n.")
   };
 
   return <div className={`${styles.container}`}>

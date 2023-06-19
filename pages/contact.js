@@ -8,7 +8,7 @@ export default function Contact() {
         <Head>
             <title>Contact | Michelle Versillé</title>
         </Head>
-        <Menu page={'contact'}></Menu>
+        <Menu active='contact'></Menu>
         <Layout>
             <Title>Contact</Title>
             &nbsp;

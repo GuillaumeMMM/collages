@@ -39,6 +39,13 @@ a.main-title h1 {
   font-size: 3rem;
 }
 
-a {
+a, a:visited {
   color: black;
+  padding: 1px 3px;
+  border-radius: 1px;
+}
+
+a:hover {
+  background-color: rgb(234, 233, 233);
+  text-decoration: underline;
 }
