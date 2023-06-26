@@ -20,7 +20,7 @@ export const getCollages = async () => {
     
       const sheet = google.sheets({ version: 'v4', auth });
     
-      const range = `!A01:G100`;
+      const range = `!A01:H100`;
     
       const response = await sheet.spreadsheets.values.get({
         spreadsheetId: process.env.SHEET_ID,
@@ -34,13 +34,14 @@ export const getCollages = async () => {
       (collagesLines || []).forEach((line, i) => {
         if (i > 0) {
           collages.push({
-            title: line[0],
-            description: line[1],
-            imageUrl: line[2],
-            width: line[3],
-            height: line[4],
-            date: line[5],
-            displayedSize: line[6]
+            title: line[0] || null,
+            description: line[1] || null,
+            imageUrl: line[2] || null,
+            width: line[3] || null,
+            height: line[4] || null,
+            date: line[5] || null,
+            displayedSize: line[6] || null,
+            catalogUrl: line[7] || null
           });
         }
       });

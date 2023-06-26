@@ -14,4 +14,18 @@
             opacity: 0.6;
         }
     }
+
+    .collage-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 400px) {
+    .collage-footer {
+        .collage-footer-catalog {
+            display: none;
+        }
+    }
 }
