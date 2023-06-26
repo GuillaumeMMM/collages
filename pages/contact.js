@@ -14,7 +14,7 @@ export default function Contact() {
             &nbsp;
             <p>Vous pouvez me contacter par mail à l'adresse suivante : <a href="mailto:michelleversille@gmail.com">michelleversille@gmail.com</a></p>
             &nbsp;
-            <p>Consultez mon cataloque sur <a href="https://art-confidential.co/catalogue/michelle-versille/" target="_blank">Art Confidential</a>.</p>
+            <p>Consultez mon catalogue sur <a href="https://art-confidential.co/catalogue/michelle-versille/" target="_blank">Art Confidential</a>.</p>
         </Layout>
     </>;
 }
