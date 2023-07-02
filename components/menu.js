@@ -12,7 +12,7 @@ export default function Menu({ active }) {
             <nav>
                 <ul>
                     <li className={active === 'collages' ? styles['active-link'] : ''}><Link href="/collages">Collages</Link></li>
-                    <li className={active === 'about' ? styles['active-link'] : ''}><Link href="/about">About</Link></li>
+                    <li className={active === 'about' ? styles['active-link'] : ''}><Link href="/about">À Propos</Link></li>
                     <li className={active === 'contact' ? styles['active-link'] : ''}><Link href="/contact">Contact</Link></li>
                 </ul>
             </nav>

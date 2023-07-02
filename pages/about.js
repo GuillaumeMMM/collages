@@ -8,13 +8,13 @@ import styles from '../styles/about.module.scss';
 export default function About() {
     return <>
         <Head>
-            <title>About | Michelle Versillé</title>
+            <title>À Propos | Michelle Versillé</title>
         </Head>
         <Menu active={'about'}></Menu>
 
         <Layout>
             <div id="top"></div>
-            <Title>About</Title>
+            <Title>À Propos</Title>
             <section className={styles['section']}>
                 <p>A Berlin, au Bauhaus, dans les années 20, Gertrud Grunow, musicienne et professeur de chant, enseignait la théorie de l’harmonisation qui reposait sur le fait qu’un équilibre universellement valable de couleurs, de sons, de sensations et de formes était ancré dans l’homme.</p>
                 &nbsp;
